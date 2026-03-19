@@ -1,0 +1,281 @@
+:root {
+  --bg-top: #f7f0d6;
+  --bg-bottom: #d4efe2;
+  --panel: rgba(255, 252, 244, 0.88);
+  --panel-border: rgba(57, 82, 59, 0.14);
+  --text-main: #203326;
+  --text-sub: #47604d;
+  --accent: #e26d3d;
+  --accent-strong: #c34d1b;
+  --mint: #5ca77b;
+  --goal: #f3c548;
+  --maze-wall: #233127;
+  --maze-path: #fef9ef;
+  --player: #dd4c3b;
+  --shadow: 0 18px 50px rgba(42, 57, 45, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Noto Sans KR", sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(94, 168, 125, 0.24), transparent 28%),
+    linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 40px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(280px, 400px) minmax(0, 1fr);
+  align-items: start;
+}
+
+.hero,
+.maze-panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.hero {
+  padding: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent-strong);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.hero-copy {
+  margin: 18px 0 0;
+  color: var(--text-sub);
+  line-height: 1.7;
+}
+
+.controls {
+  margin-top: 28px;
+  display: grid;
+  gap: 14px;
+}
+
+.difficulty-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.difficulty-button,
+.primary-button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.difficulty-button {
+  background: rgba(92, 167, 123, 0.12);
+  color: var(--mint);
+}
+
+.difficulty-button.is-active {
+  background: var(--mint);
+  color: white;
+  box-shadow: 0 10px 24px rgba(92, 167, 123, 0.28);
+}
+
+.primary-button {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 12px 26px rgba(226, 109, 61, 0.28);
+}
+
+.difficulty-button:hover,
+.primary-button:hover {
+  transform: translateY(-1px);
+}
+
+.stats {
+  margin-top: 24px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stat-card {
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(32, 51, 38, 0.08);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text-sub);
+}
+
+.stat-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.35rem;
+}
+
+.message-box {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text-sub);
+  line-height: 1.6;
+}
+
+.maze-panel {
+  padding: 20px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  color: var(--text-sub);
+  margin-bottom: 14px;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.legend-dot.start {
+  background: var(--mint);
+}
+
+.legend-dot.goal {
+  background: var(--goal);
+}
+
+.legend-dot.player {
+  background: var(--player);
+}
+
+.maze-board {
+  display: grid;
+  gap: 0;
+  width: min(72vh, 100%);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  background: var(--maze-wall);
+  padding: 8px;
+  border-radius: 24px;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+}
+
+.maze-cell {
+  position: relative;
+  background: var(--maze-path);
+  transition: background-color 0.14s ease, opacity 0.14s ease;
+}
+
+.maze-cell::after {
+  content: "";
+  position: absolute;
+  inset: 16%;
+  border-radius: 999px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.maze-cell.start::after,
+.maze-cell.goal::after,
+.maze-cell.player::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.maze-cell.start::after {
+  background: var(--mint);
+}
+
+.maze-cell.goal::after {
+  background: var(--goal);
+}
+
+.maze-cell.player::after {
+  background: var(--player);
+  box-shadow: 0 0 0 4px rgba(221, 76, 59, 0.16);
+}
+
+.maze-cell.is-hidden {
+  background: #2a352d;
+}
+
+.maze-cell.is-hidden::after {
+  opacity: 0;
+  transform: scale(0.2);
+}
+
+@media (max-width: 920px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .maze-board {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(100% - 20px, 1180px);
+    padding-top: 20px;
+  }
+
+  .hero,
+  .maze-panel {
+    border-radius: 22px;
+  }
+
+  .hero {
+    padding: 22px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
