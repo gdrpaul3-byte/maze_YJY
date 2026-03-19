@@ -15,7 +15,7 @@
       <p class="eyebrow">Maze Challenge</p>
       <h1>유지윤 미로찾기</h1>
       <p class="hero-copy">
-        방향키 또는 <strong>WASD</strong>로 출발점에서 도착점까지 이동하세요.
+        방향키, <strong>WASD</strong>, 또는 화면의 버튼으로 출발점에서 도착점까지 이동하세요.
         새로운 미로를 만들고 가장 빠른 기록에 도전할 수 있습니다.
       </p>
 
@@ -56,6 +56,13 @@
         <span><i class="legend-dot player"></i> 현재 위치</span>
       </div>
       <div id="maze-board" class="maze-board" role="application" aria-label="미로찾기 게임"></div>
+
+      <div class="dpad" aria-label="방향 조작">
+        <button class="dpad-btn dpad-up"   data-dir="top"    aria-label="위">▲</button>
+        <button class="dpad-btn dpad-left" data-dir="left"   aria-label="왼쪽">◀</button>
+        <button class="dpad-btn dpad-down" data-dir="bottom" aria-label="아래">▼</button>
+        <button class="dpad-btn dpad-right"data-dir="right"  aria-label="오른쪽">▶</button>
+      </div>
     </section>
   </main>
 

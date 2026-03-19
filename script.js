@@ -256,9 +256,45 @@ function handleDifficultyClick(event) {
   createNewMaze();
 }
 
+function handleDpadClick(event) {
+  const dir = event.currentTarget.dataset.dir;
+  if (dir) movePlayer(dir);
+}
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+function handleTouchStart(event) {
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchEnd(event) {
+  const dx = event.changedTouches[0].clientX - touchStartX;
+  const dy = event.changedTouches[0].clientY - touchStartY;
+  const absDx = Math.abs(dx);
+  const absDy = Math.abs(dy);
+
+  if (Math.max(absDx, absDy) < 20) return;
+
+  event.preventDefault();
+  if (absDx > absDy) {
+    movePlayer(dx > 0 ? "right" : "left");
+  } else {
+    movePlayer(dy > 0 ? "bottom" : "top");
+  }
+}
+
 difficultyButtons.forEach((button) => {
   button.addEventListener("click", handleDifficultyClick);
 });
+
+document.querySelectorAll(".dpad-btn").forEach((btn) => {
+  btn.addEventListener("click", handleDpadClick);
+});
+
+boardElement.addEventListener("touchstart", handleTouchStart, { passive: true });
+boardElement.addEventListener("touchend", handleTouchEnd, { passive: false });
 
 newMazeButton.addEventListener("click", createNewMaze);
 window.addEventListener("keydown", handleKeydown);

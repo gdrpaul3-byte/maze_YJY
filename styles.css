@@ -250,6 +250,47 @@ h1 {
   transform: scale(0.2);
 }
 
+.dpad {
+  display: none;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 20px auto 4px;
+}
+
+.dpad-btn {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(92, 167, 123, 0.18);
+  color: var(--text-main);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.dpad-btn:active {
+  background: var(--mint);
+  color: white;
+  transform: scale(0.93);
+}
+
+.dpad-up    { top: 0;    left: 50%; transform: translateX(-50%); }
+.dpad-up:active    { transform: translateX(-50%) scale(0.93); }
+.dpad-down  { bottom: 0; left: 50%; transform: translateX(-50%); }
+.dpad-down:active  { transform: translateX(-50%) scale(0.93); }
+.dpad-left  { left: 0;   top: 50%;  transform: translateY(-50%); }
+.dpad-left:active  { transform: translateY(-50%) scale(0.93); }
+.dpad-right { right: 0;  top: 50%;  transform: translateY(-50%); }
+.dpad-right:active { transform: translateY(-50%) scale(0.93); }
+
 @media (max-width: 920px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -257,6 +298,12 @@ h1 {
 
   .maze-board {
     width: 100%;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .dpad {
+    display: block;
   }
 }
 
@@ -277,5 +324,9 @@ h1 {
 
   .stats {
     grid-template-columns: 1fr;
+  }
+
+  .dpad {
+    display: block;
   }
 }
